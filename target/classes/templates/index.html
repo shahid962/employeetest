@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	   <title>Employee Portal</title>
+	  <meta charset="utf-8" />
+	  <meta name="viewport" content="width=device-width, initial-scale=1" />
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+	  <script src="/js/controller.js"></script>
+	  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+	  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+</head>
+<body>
+
+<div class="container" ng-app="app">
+	<table>
+		<tr>
+			<td>
+				<div ng-controller="styleController" ng-style="styleObj">
+					<p>Welcome to the Employee Portal</p>
+				</div>
+			</td>
+		</tr>
+	</table>
+		<br/><br/>
+		
+	<div ng-controller="postcontroller">
+		<form name="customerForm" ng-submit="submitForm()">
+		
+		 <table>
+			<tr>
+				<td>
+		 			 Employee Name: 
+		  		</td>
+		  		<td>
+		  			<input type="text" name="empname" class="form-control" ng-model="empname" style="width: 300px"/>
+		  		</td>
+  		  	</tr>
+  		  	<tr>
+  		  		<td>
+  		 		 Employee Numbers:
+  		  		</td>
+		  		<td> 
+		  			<input type="text" name="empno" class="form-control" ng-model="empno" style="width: 300px"/>
+		  		</td>
+  		  </tr>
+  		  <tr>
+  		  		<td>
+		  			Designation:
+		  		</td>
+		  		<td>
+		  			 <input type="text" name="designation" class="form-control" ng-model="designation" style="width: 300px"/>
+		  		</td>
+  		  </tr>
+  		  <tr>
+  		  	<td>
+  		  		Department: 
+  		  	</td>
+		  	<td>
+		  		<input type="text" name="department" class="form-control" ng-model="department" style="width: 300px"/>
+		  	</td>
+  		  	</tr>
+  		  	<tr>
+<td><p ng-hide=""></p></td>
+</tr> 
+  		  	<tr>
+  		  		<td></td>
+  		  		<td>
+  		  			<button type="submit" class="btn btn-primary">Submit</button>
+  		  		</td>
+  		  	</tr>
+  		  </table>
+  		  <br/>
+		</form>
+		<p>{{postResultMessage}}</p>
+	</div>
+	
+	<div ng-controller="getcontroller">
+		<button id="btn-id" ng-click="getfunction()">Get Employee Details</button>
+		  		  	<tr>
+<td><p ng-hide=""></p></td>
+</tr>
+ <div class="input-group">
+         <!-- <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" />
+         <span class="input-group-addon">
+         <span class="glyphicon glyphicon-search"></span>
+         </span> -->
+   
+   <table >
+         <tr>
+  		  		<td>
+		  			Search:
+		  		</td>
+		  		<td>
+		  		     <input ng-model="q" id="search" class="form-control" placeholder="Filter text" /> 
+		  			 <!-- <input type="text" name="designation" class="form-control" ng-model="designation" style="width: 300px"/> -->
+		  		</td>
+  		  </tr>
+        <!--  <tr>
+  		  		<td>
+		  			Page Size:
+		  		</td>
+		  		<td>
+		  		      <select ng-model="pageSize" id="pageSize" class="form-control">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+     </select> 		  		</td>
+  		  </tr> -->
+   </table>
+    
+  <!--  <input ng-model="q" id="search" class="form-control" placeholder="Filter text" /> 
+      <select ng-model="pageSize" id="pageSize" class="form-control">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+     </select>  -->
+     </div>
+        <table class="table" ng-show="showTable">
+		  <thead>
+		    <tr>
+		   <!--  
+		    // code to sort the columns.-->
+		    
+		    <th class="empname"> <a href="" ng-click="columnToOrder='empname';reverse=!reverse"> Name
+            </a>
+            </th>
+            <th class="empno"> <a href="" ng-click="columnToOrder='empno';reverse=!reverse"> Employee ID </a>
+            </th>
+           <th class="designation"> <a href="" ng-click="columnToOrder='designation';reverse=!reverse"> Designation </a>
+           </th>
+			<th class="department"> <a href="" ng-click="columnToOrder='department';reverse=!reverse"> Department </a>
+           </th>
+			    
+		         </tr>
+		  </thead>
+		  <tbody>
+		    <!--  <tr ng-repeat="cust in filteredList | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize"> -->
+		     <tr ng-repeat="cust in filteredList | orderBy:columnToOrder:reverse | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize"> 
+		   	  <td>{{ cust.empname }}</td>
+		      <td>{{ cust.empno }}</td>
+		      <td>{{ cust.designation }}</td>
+		      <td>{{ cust.department }}</td>
+     		</tr>
+     	  </tbody>
+		</table>
+		<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+        Previous
+    </button>
+    {{currentPage+1}}/{{numberOfPages()}}
+    <button ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
+        Next
+    </button>
+	 </div>  
+		
+    
+<!-- </div> -->
+	 
+</div>
+</body>
+</html>
